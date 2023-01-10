@@ -11,10 +11,12 @@ class Function:
         self,
         array: Optional[List[Optional[float]]] = None,
         analytic_expression: Optional[Callable] = None,
+        smoothing: Optional[Callable] = None,
         line_segment: Optional[np.array] = None,
         zeros: List[Optional[float]] = [],
         poles: List[Optional[float]] = [],
         compute_zeros: bool = False,
+        smooth_ends: bool = False
     ):
         self.array = array
         self.analytic_expression = analytic_expression
