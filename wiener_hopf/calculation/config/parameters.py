@@ -1,4 +1,5 @@
 CONSTANTS = {
-    "INTEGRATION": {"END": 10000, "EXTENSION": 0.1},
+    "EPSILON":1e-13,
+    "INTEGRATION": {"END": 10000, "EXTENSION": 5},
     "EQUATIONS": {"XMIN": 0, "XMAX": 100, "N": 1000},
 }
