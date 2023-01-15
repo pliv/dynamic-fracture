@@ -16,7 +16,7 @@ class Function:
         zeros: List[Optional[float]] = [],
         poles: List[Optional[float]] = [],
         compute_zeros: bool = False,
-        smooth_ends: bool = False
+        smooth_ends: bool = False,
     ):
         self.array = array
         self.analytic_expression = analytic_expression

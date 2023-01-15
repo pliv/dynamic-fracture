@@ -6,9 +6,9 @@ from wiener_hopf.calculation.config.parameters import CONSTANTS
 
 
 class NonlinearSolver:
-    xmin:float = CONSTANTS["EQUATIONS"]["XMIN"]
-    xmax:float = CONSTANTS["EQUATIONS"]["XMAX"]
-    N:float = CONSTANTS["EQUATIONS"]["N"]
+    xmin: float = CONSTANTS["EQUATIONS"]["XMIN"]
+    xmax: float = CONSTANTS["EQUATIONS"]["XMAX"]
+    N: float = CONSTANTS["EQUATIONS"]["N"]
 
     @classmethod
     def solve(cls, function: Callable) -> List[float]:
