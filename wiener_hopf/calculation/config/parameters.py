@@ -1,5 +1,6 @@
 CONSTANTS = {
     "EPSILON": 1e-13,
+    "ZERO_THRESHOLD": 1e-8,
     "INTEGRATION": {"END": 10000, "EXTENSION": 5},
     "EQUATIONS": {"XMIN": 0, "XMAX": 100, "N": 1000},
 }

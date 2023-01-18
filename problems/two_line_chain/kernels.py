@@ -45,44 +45,58 @@ class TwoLineChain:
                     / math.sqrt(self.kernel_functions["psi_D"]["squared"](x))
                 ),
             },
-            "L_S": {
-                "numerator": Function(
-                    analytic_expression=lambda x: self.kernel_functions[
-                        "quadratic_term"
-                    ](x)
-                    + self.kernel_functions["phi_S"]["squared"](x)
-                ),
-                "denominator": Function(
-                    analytic_expression=lambda x: self.kernel_functions[
-                        "quadratic_term"
-                    ](x)
-                    + self.kernel_functions["psi_S"]["squared"](x)
-                ),
-                "function": Function(
-                    analytic_expression=lambda x: self.kernel_functions["L_S"][
-                        "numerator"
-                    ](x)
-                    / self.kernel_functions["L_S"]["denominator"](x)
-                ),
-            },
-            "L_D": {
-                "numerator": Function(
-                    analytic_expression=lambda x: self.kernel_functions[
-                        "quadratic_term"
-                    ](x)
-                    + self.kernel_functions["phi_D"]["squared"](x)
-                ),
-                "denominator": Function(
-                    analytic_expression=lambda x: self.kernel_functions[
-                        "quadratic_term"
-                    ](x)
-                    + self.kernel_functions["psi_D"]["squared"](x)
-                ),
-                "function": Function(
-                    analytic_expression=lambda x: self.kernel_functions["L_D"][
-                        "numerator"
-                    ](x)
-                    / self.kernel_functions["L_D"]["denominator"](x)
-                ),
-            },
         }
+
+        self.kernel_functions.update(
+            {
+                "L_S": {
+                    "numerator": Function(
+                        analytic_expression=lambda x: self.kernel_functions[
+                            "quadratic_term"
+                        ](x)
+                        + self.kernel_functions["phi_S"]["squared"](x),
+                        compute_zeros=True,
+                    ),
+                    "denominator": Function(
+                        analytic_expression=lambda x: self.kernel_functions[
+                            "quadratic_term"
+                        ](x)
+                        + self.kernel_functions["psi_S"]["squared"](x),
+                        compute_zeros=True,
+                    ),
+                },
+                "L_D": {
+                    "numerator": Function(
+                        analytic_expression=lambda x: self.kernel_functions[
+                            "quadratic_term"
+                        ](x)
+                        + self.kernel_functions["phi_D"]["squared"](x),
+                        compute_zeros=True,
+                    ),
+                    "denominator": Function(
+                        analytic_expression=lambda x: self.kernel_functions[
+                            "quadratic_term"
+                        ](x)
+                        + self.kernel_functions["psi_D"]["squared"](x),
+                        compute_zeros=True,
+                    ),
+                },
+            }
+        )
+
+        self.kernel_functions["L_S"]["function"] = self.set_kernel_function(
+            kernel_name="L_S"
+        )
+        self.kernel_functions["L_D"]["function"] = self.set_kernel_function(
+            kernel_name="L_D"
+        )
+
+    def set_kernel_function(self, kernel_name):
+        return Function(
+            analytic_expression=lambda x: self.kernel_functions[kernel_name][
+                "numerator"
+            ](x)
+            / self.kernel_functions[kernel_name]["denominator"](x),
+            zeros=self.kernel_functions[kernel_name]["numerator"].zeros,
+            poles=self.kernel_functions[kernel_name]["denominator"].zeros,
+        )
